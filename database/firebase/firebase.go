@@ -12,11 +12,11 @@ import (
 type Config struct {
 	KeyPath string
 }
-type FireStore struct {
+type Firestore struct {
 	client *firestore.Client
 }
 
-func NewFireStore(config Config) *FireStore {
+func NewFirestore(config Config) *Firestore {
 	firebaseConfig := &firebase.Config{}
 	ctx := context.Background()
 	opt := option.WithCredentialsFile(config.KeyPath)
@@ -28,7 +28,11 @@ func NewFireStore(config Config) *FireStore {
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-	return &FireStore{
+	return &Firestore{
 		client: client,
 	}
+}
+
+func (f *Firestore) Create() {
+
 }

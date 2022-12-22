@@ -1,6 +1,3 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -18,6 +15,7 @@ type Config struct {
 }
 
 type DB interface {
+	Create()
 }
 
 var cfgFile string
@@ -32,8 +30,6 @@ var rootCmd = &cobra.Command{
 	// Run: func(cmd *cobra.Command, args []string) { },
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
@@ -44,7 +40,6 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/termtsk/config.toml)")
-	//rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 func initConfig() {
@@ -68,5 +63,5 @@ func initConfig() {
 		fmt.Println(err.Error())
 		os.Exit(1)
 	}
-	database = firebase.NewFireStore(config.Firebase)
+	database = firebase.NewFirestore(config.Firebase)
 }
