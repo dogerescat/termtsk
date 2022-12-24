@@ -12,7 +12,11 @@ func Run(taskList []*form.Task) int {
 	selectNum := -1
 	for i := 0; i < len(taskList); i++ {
 		func(j int) {
-			list.AddItem(taskList[j].Title, taskList[j].Detail, ' ', func() {
+			var r rune = ' '
+			if taskList[j].Done {
+				r = '◉'
+			}
+			list.AddItem(taskList[j].Title, taskList[j].Detail, r, func() {
 				selectNum = j
 				app.Stop()
 			})

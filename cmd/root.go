@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/user"
 	"termtsk/database/firebase"
+	"termtsk/ui/form"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -15,7 +16,9 @@ type Config struct {
 }
 
 type DB interface {
-	Create()
+	Create(task *form.Task) error
+	GetAll() []*form.Task
+	Update(task *form.Task) error
 }
 
 var cfgFile string
