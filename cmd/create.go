@@ -1,34 +1,28 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
-	"fmt"
+	"log"
+	"termtsk/ui/form"
 
 	"github.com/spf13/cobra"
 )
 
-// createCmd represents the create command
 var createCmd = &cobra.Command{
-	Use:   "create",
+	Use:   "new",
 	Short: "create",
-	Long:  `create`,
+	Long:  "create",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("create called")
+		task := &form.Task{}
+		task = form.Run(task)
+		if task != nil {
+			err := database.Create(task)
+			if err != nil {
+				log.Println(err.Error())
+			}
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(createCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// createCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// createCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
